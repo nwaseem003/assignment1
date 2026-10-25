@@ -1,6 +1,10 @@
 package mru.game.view;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+
+import mru.game.controller.Card;
+import mru.game.model.Player;
 
 
 public class AppMenu {
@@ -58,9 +62,103 @@ public class AppMenu {
 		System.out.println("Enter player name: ");
 		return input.nextLine().trim();
 	}
+	
+	
+	
+	/// efosa added
+	
+	
+	
+	public int promptBet(double balance, int minBet) {
+		while (true) {
+			System.out.print("\nHow much do you want to bet this round? ");
 
+			if (!input.hasNextInt()) {
+				input.nextLine(); // throw away the bad input
+				System.out.println("Invalid amount! Please enter a whole number.");
+				continue;
+			}
+
+			int bet = input.nextInt();
+			input.nextLine(); // clear the rest of the line
+
+			if (bet < minBet)
+				System.out.println("The minimum bet is $" + minBet + ".");
+			else if (bet > balance)
+				System.out.println("You cannot bet more than your balance ($"
+						+ Player.formatMoney(balance) + ").");
+			else
+				return bet;
+		}}
+	
+
+	public void showMessage(String message) {
+		System.out.println("\n" + message);}
+
+	public boolean promptHit() {
+		while (true) {
+			System.out.println("\nSelect an option:\n");
+			System.out.println("\t1.Hit");
+			System.out.println("\t2.Stand\n");
+			System.out.print("You choice:");
+
+			String choice = input.nextLine().trim();
+			if (choice.equals("1"))
+				return true;
+			if (choice.equals("2"))
+				return false;
+
+			System.out.println("Invalid choice! Please enter 1 or 2.");
+		}}
+
+public boolean promptContinue() {
+	while (true) {
+		System.out.print("\nDo you want to continue(y/n)? ");
+		String choice = input.nextLine().trim();
+
+		if (choice.equalsIgnoreCase("Y"))
+			return true;
+		if (choice.equalsIgnoreCase("N"))
+			return false;
+
+		System.out.println("Invalid choice! Please enter y or n.");
+	}}
+
+public void showTable(ArrayList<Card> playerHand, ArrayList<Card> dealerHand, boolean hideDealer) {
+    System.out.println("\n       - BLACKJACK -");
+    System.out.println("+-----------------------+----------------------+");
+    System.out.println("| PLAYER                | DEALER               |");
+    System.out.println("+-----------------------+----------------------+");
+
+    int rows = playerHand.size();
+
+    if (dealerHand.size() > rows) {
+        rows = dealerHand.size();
+    }
+
+    for (int i = 0; i < rows; i++) {
+        String p = "";
+        String d = "";
+
+        if (i < playerHand.size()) {
+            p = playerHand.get(i).toString();
+        }
+
+        if (i < dealerHand.size()) {
+            if (hideDealer && i == 1) {
+                d = "Hidden";
+            } else {
+                d = dealerHand.get(i).toString();
+            }
+        }
+
+        System.out.printf("| %-22s | %-21s |%n", p, d);
+        System.out.println("+-----------------------+----------------------+");
+    }}
+
+
+}
 	/**
 	 * This class will be used to show the menus and sub menus to the user
 	 * It also prompts the user for the inputs and validates them 
 	 */
-}
