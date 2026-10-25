@@ -48,6 +48,14 @@ public class CardDeck {
 	private void shuffleDeck() {
 		Collections.shuffle(deck); 
 	}
+	//deals card from deck and reshuffles when empty
+	public Card dealCard() {
+		if(deck.isEmpty()) {
+			createDeck();
+			shuffleDeck();
+		}
+		return deck.remove(0);//removes top card from draw pool
+	}
 
 	/**
 	 * The deck getter method
