@@ -63,12 +63,6 @@ public class AppMenu {
 		return input.nextLine().trim();
 	}
 	
-	
-	
-	/// efosa added
-	
-	
-	
 	public int promptBet(double balance, int minBet) {
 		while (true) {
 			System.out.print("\nHow much do you want to bet this round? ");
