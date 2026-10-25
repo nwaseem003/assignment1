@@ -127,7 +127,8 @@ public void start() throws IOException {
             }
         } else if (choice.equals("S")) {
             searchMenu();
-        }}
+        }
+	} savePlayers():
     System.out.println("Player information saved. Goodbye!");
 
 }
