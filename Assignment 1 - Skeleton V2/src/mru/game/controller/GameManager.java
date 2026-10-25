@@ -5,14 +5,18 @@ import java.util.ArrayList; //lets us store multiple players in a list
 import mru.game.model.Player; //lets this class use the player class 
 import java.io.File;
 import java.util.Scanner;
+import java.io.PrintWriter;
+import mru.game.view.AppMenu;
 
 
 public class GameManager {
 
 	private ArrayList<Player> players; //creates a field to hold player objects 
+	private AppMenu menu;
 
 	public GameManager(){
 		players = new ArrayList<Player>(); //intilaizes list so we can add players to it 
+		menu = new AppMenu();
 	}
 	
 	public void loadPlayers() throws IOException{
@@ -43,6 +47,154 @@ public class GameManager {
 
 	input.close();
 }
+	public void savePlayers() throws IOException{
+		File file = new File("res/CasinoInfo.txt");
+
+		PrintWriter output = new PrintWriter(file); //lets us write to the file
+
+		for (Player player : players){ //goes through every player in the list
+			output.println(player.getName() + "," //retrieve player information and writes players infor on a line 
+			+ player.getBalance() + ","
+			+ player.getNumberOfWins());
+
+		}
+
+		output.close(); //closes file when finished
+	}
+
+	public Player findPlayer(String name){ //recieves the name that we are looking for 
+		for (Player player : players){ //for loop checks each player in the players ArrayList 
+			if (player.getName().equalsIgnoreCase(name)){ //compares name with no need to check is lower or uppercase 
+				return player;//gives back the matching player if found
+			}
+		}
+
+		return null; //returns this is no matches were found 
+	}
+
+
+	public Player getOrCreatePlayer(String name){
+		Player player = findPlayer(name); //checks whether the player already exists 
+
+		if (player == null){ //checks if no matching player was found 
+			player = new Player(name,100.0,0);//if they are a new plyer then they create a new player with $100 and zero wins
+			players.add(player);//adds said no player to the list 
+		}
+
+		return player; //return the player whether they are new or not.
+	}
+	
+    public ArrayList<Player> getTopPlayers() {
+    ArrayList<Player> topPlayers = new ArrayList<Player>();
+
+    if (players.isEmpty()) {
+        return topPlayers;
+    }
+
+    int mostWins = players.get(0).getNumberOfWins();
+
+    for (Player player : players) {
+        if (player.getNumberOfWins() > mostWins) {
+            mostWins = player.getNumberOfWins();
+        }
+    }
+
+    for (Player player : players) {
+        if (player.getNumberOfWins() == mostWins) {
+            topPlayers.add(player);
+        }
+    }
+
+    return topPlayers;
+}
+
+	
+
+	
+public void start() throws IOException {
+    loadPlayers();
+
+    String choice = "";
+
+    while (!choice.equals("E")) {
+        choice = menu.showMainMenu();
+
+        if (choice.equals("P")) {
+            System.out.println("Blackjack game coming next!");
+        }
+        else if (choice.equals("S")) {
+            searchMenu();
+        }
+    }
+
+    savePlayers();
+    System.out.println("Player information saved. Goodbye!");
+}
+
+public void searchMenu() {
+    String choice = "";
+
+    while (!choice.equals("B")) {
+        choice = menu.showSearchMenu();
+
+        if (choice.equals("T")) {
+            ArrayList<Player> topPlayers = getTopPlayers();
+
+            if (topPlayers.isEmpty()) {
+                System.out.println("No players found.");
+            } else {
+                System.out.println("Top player(s):");
+
+                for (Player player : topPlayers) {
+                    System.out.println("Name: " + player.getName());
+                    System.out.println("Number of wins: "
+                            + player.getNumberOfWins());
+                }
+            }
+
+            menu.pause();
+        }
+        else if (choice.equals("N")) {
+            String name = menu.askPlayerName();
+            Player player = findPlayer(name);
+
+            if (player == null) {
+                System.out.println("Player not found.");
+            } else {
+                System.out.println("Name: " + player.getName());
+                System.out.println("Balance: $" + player.getBalance());
+                System.out.println("Wins: " + player.getNumberOfWins());
+            }
+
+            menu.pause();
+        }
+    }
+}
+
+
+public Player preparePlayer() {
+    String name = menu.askPlayerName();
+
+    while (name.isEmpty()) {
+        System.out.println("Name cannot be empty.");
+        name = menu.askPlayerName();
+    }
+
+    Player player = getOrCreatePlayer(name);
+
+    if (player.getBalance() <= 0) {
+        System.out.println("This player has no money left.");
+        return null;
+    }
+
+    System.out.println("Welcome, " + player.getName() + "!");
+    System.out.println("Your balance is: $" + player.getBalance());
+
+    return player;
+}
+
+
+}
 
 
 
@@ -57,4 +209,4 @@ public class GameManager {
 
 	
 
-}
+
