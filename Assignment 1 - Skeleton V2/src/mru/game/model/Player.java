@@ -37,12 +37,8 @@ public class Player {
 		return name + ", " + balance +", " + numberOfWins;
 	}
 	public static String formatMoney(double amount) {
-	    long wholeAmount = (long) amount;
-
-	public static String formatMoney(double amount) {
 	    if (amount == Math.floor(amount)) // rounds down
 	        return String.valueOf((long) amount);
 	    return String.format("%.2f", amount);
 	    }
 	}
-}
