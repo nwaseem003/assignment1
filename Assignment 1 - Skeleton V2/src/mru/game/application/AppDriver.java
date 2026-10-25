@@ -1,5 +1,5 @@
 package mru.game.application;
-
+import mru.game.controller.GameManager;
 import java.io.IOException;
 
 public class AppDriver {
