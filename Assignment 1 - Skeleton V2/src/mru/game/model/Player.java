@@ -39,10 +39,10 @@ public class Player {
 	public static String formatMoney(double amount) {
 	    long wholeAmount = (long) amount;
 
-	    if (amount == wholeAmount) {
-	        return String.valueOf(wholeAmount);
-	    } else {
-	        return String.format("%.2f", amount);
+	public static String formatMoney(double amount) {
+	    if (amount == Math.floor(amount)) // rounds down
+	        return String.valueOf((long) amount);
+	    return String.format("%.2f", amount);
 	    }
 	}
 }
