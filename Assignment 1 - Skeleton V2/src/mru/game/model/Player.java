@@ -36,4 +36,13 @@ public class Player {
 	public String toString() {
 		return name + ", " + balance +", " + numberOfWins;
 	}
+	public static String formatMoney(double amount) {
+	    long wholeAmount = (long) amount;
+
+	    if (amount == wholeAmount) {
+	        return String.valueOf(wholeAmount);
+	    } else {
+	        return String.format("%.2f", amount);
+	    }
+	}
 }
