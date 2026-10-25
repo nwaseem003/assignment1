@@ -13,10 +13,12 @@ public class GameManager {
 
 	private ArrayList<Player> players; //creates a field to hold player objects 
 	private AppMenu menu;
+	private CardDeck deck;
 
 	public GameManager(){
 		players = new ArrayList<Player>(); //intilaizes list so we can add players to it 
 		menu = new AppMenu();
+		deck = new CardDeck();
 	}
 	
 	public void loadPlayers() throws IOException{
@@ -54,7 +56,7 @@ public class GameManager {
 
 		for (Player player : players){ //goes through every player in the list
 			output.println(player.getName() + "," //retrieve player information and writes players infor on a line 
-			+ player.getBalance() + ","
+			+ player.formatMoney(player.getBalance()) + ","
 			+ player.getNumberOfWins());
 
 		}
@@ -120,14 +122,14 @@ public void start() throws IOException {
         choice = menu.showMainMenu();
 
         if (choice.equals("P")) {
-            System.out.println("Blackjack game coming next!");
-        }
-        else if (choice.equals("S")) {
+        	Player player = preparePlayer();
+            if (player != null) { // preparePlayer returns null for a $0 player
+                new BlackjackGame(deck, menu).play(player);
+            }
+        } else if (choice.equals("S")) {
             searchMenu();
         }
     }
-
-    savePlayers();
     System.out.println("Player information saved. Goodbye!");
 }
 
@@ -153,6 +155,7 @@ public void searchMenu() {
             }
 
             menu.pause();
+			choice = "B";
         }
         else if (choice.equals("N")) {
             String name = menu.askPlayerName();
@@ -167,6 +170,7 @@ public void searchMenu() {
             }
 
             menu.pause();
+			choice = "B";
         }
     }
 }
