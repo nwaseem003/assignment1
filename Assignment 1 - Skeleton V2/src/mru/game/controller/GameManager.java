@@ -14,6 +14,7 @@ public class GameManager {
 	private ArrayList<Player> players; //creates a field to hold player objects 
 	private AppMenu menu;
 	private CardDeck deck;
+	
 
 	public GameManager(){
 		players = new ArrayList<Player>(); //intilaizes list so we can add players to it 
@@ -111,8 +112,6 @@ public class GameManager {
 }
 
 	
-
-	
 public void start() throws IOException {
     loadPlayers();
 
@@ -128,9 +127,9 @@ public void start() throws IOException {
             }
         } else if (choice.equals("S")) {
             searchMenu();
-        }
-    }
+        }}
     System.out.println("Player information saved. Goodbye!");
+
 }
 
 public void searchMenu() {
@@ -155,7 +154,7 @@ public void searchMenu() {
             }
 
             menu.pause();
-			choice = "B";
+            choice = "B";
         }
         else if (choice.equals("N")) {
             String name = menu.askPlayerName();
@@ -170,7 +169,7 @@ public void searchMenu() {
             }
 
             menu.pause();
-			choice = "B";
+            choice = "B";
         }
     }
 }
@@ -212,5 +211,4 @@ public Player preparePlayer() {
 	 */
 
 	
-
 
