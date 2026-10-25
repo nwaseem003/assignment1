@@ -1,6 +1,5 @@
 package mru.game.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import mru.game.model.Player; // lets this class use the player class
 import mru.game.view.AppMenu; // lets this class use the player class
@@ -30,7 +29,7 @@ public class BlackjackGame {
 		public void play(Player player) { // this plays a round with the player until they're broke or want to stop
 			while (true) {
 				if (player.getBalance() < MIN_BET) {
-					System.out.println("You do not have enough balance to play (minimum bet is $" + MIN_BET + ").");
+					menu.showMessage("You do not have enough balance to play (minimum bet is $" + MIN_BET + ").");
 					return;
 				}
 
@@ -38,7 +37,7 @@ public class BlackjackGame {
 				playRound(player, bet);
 
 				if (player.getBalance()<MIN_BET){
-					System.out.println("You do not have enough balance.");
+					menu.showMessage("You do not have enough balance.");
 					return;
 				}
 
@@ -103,7 +102,6 @@ public class BlackjackGame {
 			   else
 			       menu.showMessage("It's a tie! Your bet is returned.");
 			}
-		}
 		
 		public void playDealerHand(ArrayList<Card> dealerHand) {
 			while (getScore(dealerHand) < DEALER_STAND)
@@ -142,7 +140,7 @@ public class BlackjackGame {
 		
 		
 		public static String evaluate(ArrayList<Card> playerHand, ArrayList<Card> dealerHand) {
-			boolean playerNatural = isNatural(playerHand); // fix this line!!!!
+			boolean playerNatural = isNatural(playerHand); 
 			boolean dealerNatural = isNatural(dealerHand);
 
 			if (playerNatural && dealerNatural)
