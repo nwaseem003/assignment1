@@ -1,17 +1,17 @@
 package mru.game.controller;
 
 import java.util.ArrayList;
-import mru.game.model.Player; // lets this class use the player class
-import mru.game.view.AppMenu; // lets this class use the player class
+import mru.game.model.Player; /**lets this class use the player class */
+import mru.game.view.AppMenu; /**lets this class use the player class */
 
 public class BlackjackGame {
 
 		
-		private CardDeck deck; // deck used in games
-		private AppMenu menu; // shows the game and prompts the user
+		private CardDeck deck; /**  deck used in games */
+		private AppMenu menu; /**shows the game and prompts the user */
 		
-		public static final int MIN_BET = 2; // minimum bet allowed
-		public static final int DEALER_STAND = 17; // delaer draws until he reaches this amt
+		public static final int MIN_BET = 2; /**minimum bet allowed */
+		public static final int DEALER_STAND = 17; /**delaer draws until he reaches this amt */
 
 		
 		public static final String PLAYER_NATURAL = "PLAYER_NATURAL";
@@ -26,7 +26,7 @@ public class BlackjackGame {
 			this.menu = menu;
 		}
 
-		public void play(Player player) { // this plays a round with the player until they're broke or want to stop
+		public void play(Player player) { /**this plays a round with the player until they're broke or want to stop */
 			while (true) {
 				if (player.getBalance() < MIN_BET) {
 					menu.showMessage("You do not have enough balance to play (minimum bet is $" + MIN_BET + ").");
@@ -46,7 +46,7 @@ public class BlackjackGame {
 			}
 		}
 
-		public void playRound(Player player, int bet){ // plays a round and updates the players balance
+		public void playRound(Player player, int bet){ /**plays a round and updates the players balance */
 			ArrayList<Card> playerHand = new ArrayList<Card>();
 			ArrayList<Card> dealerHand = new ArrayList<Card>();
 
@@ -55,16 +55,16 @@ public class BlackjackGame {
 			playerHand.add(deck.dealCard());
 			dealerHand.add(deck.dealCard());
 
-			String result; // one of the player_natural, win, lose, push
+			String result; /**one of the player_natural, win, lose, push */
 
 			
 			
-			if (isNatural(playerHand) || isNatural(dealerHand)) { // Naturals are settled immediately
+			if (isNatural(playerHand) || isNatural(dealerHand)) { /**Naturals are settled immediately */
 				menu.showTable(playerHand, dealerHand, false);
 				result = evaluate(playerHand, dealerHand);
 				
 			}
-			else { // The player goes first
+			else { /**The player goes first */
 				while (true) {
 					menu.showTable(playerHand, dealerHand, true);
 					if (isBust(playerHand) || getScore(playerHand) == 21)
@@ -76,7 +76,7 @@ public class BlackjackGame {
 				}
 				
 				
-				if (isBust(playerHand)){ // dealer doesn't need to play any cards
+				if (isBust(playerHand)){ /**dealer doesn't need to play any cards */
 					result = LOSE;
 			
 				} else {
@@ -118,7 +118,7 @@ public class BlackjackGame {
 					aces++;
 					total += 1;
 				} else if (rank >= 10) {
-					total += 10; // 10, Jack, Queen and King
+					total += 10; /**10, Jack, Queen and King */
 				} else {
 					total += rank;
 				}
@@ -172,10 +172,5 @@ public class BlackjackGame {
 			}
 		}
 
-		/**
-		 * In this class you implement the game
-		 * You should use CardDeck class here
-		 * See the instructions for the game rules
-		 */
-	
+		
 

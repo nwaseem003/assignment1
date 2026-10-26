@@ -54,7 +54,7 @@ public class AppMenu {
 	}
 
 	public void pause(){
-		System.out.println("\nPress Enter to continue...");//waits for user to press enter before continuing
+		System.out.println("\nPress Enter to continue...");/**waits for user to press enter before continuing */
 		input.nextLine();
 	}
 
@@ -68,13 +68,13 @@ public class AppMenu {
 			System.out.print("\nHow much do you want to bet this round? ");
 
 			if (!input.hasNextInt()) {
-				input.nextLine(); // throw away the bad input
+				input.nextLine(); /**throw away the bad input */
 				System.out.println("Invalid amount! Please enter a whole number.");
 				continue;
 			}
 
 			int bet = input.nextInt();
-			input.nextLine(); // clear the rest of the line
+			input.nextLine(); /**clear the rest of the line */
 
 			if (bet < minBet)
 				System.out.println("The minimum bet is $" + minBet + ".");
@@ -148,11 +148,9 @@ public void showTable(ArrayList<Card> playerHand, ArrayList<Card> dealerHand, bo
 
         System.out.printf("| %-22s | %-21s |%n", p, d);
         System.out.println("+-----------------------+----------------------+");
-    }}
+    }
+}
 
 
 }
-	/**
-	 * This class will be used to show the menus and sub menus to the user
-	 * It also prompts the user for the inputs and validates them 
-	 */
+	

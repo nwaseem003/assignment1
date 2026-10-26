@@ -58,14 +58,14 @@ public class Card {
 	public void setSuit(String suit) {
 		this.suit = suit;
 	}
-		//Returns values for cards in the deck 
+		/**Returns values for cards in the deck*/ 
 	public int getCardValue() {
 		if (rank==1) {
 			return 11; //ace
 		} else if (rank >= 10 && rank <=13) {
-			return 10; //face cards
+			return 10; /**face cards*/
 		}else {
-			return rank; //other cards
+			return rank; /**other cards*/
 		}
 	}
 
